@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		F69E012B21EE1BED00ED97E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69E012A21EE1BED00ED97E0 /* AppDelegate.swift */; };
-		F69E012D21EE1BED00ED97E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69E012C21EE1BED00ED97E0 /* ViewController.swift */; };
+		F69E012D21EE1BED00ED97E0 /* FlashyCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69E012C21EE1BED00ED97E0 /* FlashyCardViewController.swift */; };
 		F69E013021EE1BED00ED97E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F69E012E21EE1BED00ED97E0 /* Main.storyboard */; };
 		F69E013221EE1BF100ED97E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F69E013121EE1BF100ED97E0 /* Assets.xcassets */; };
 		F69E013521EE1BF100ED97E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F69E013321EE1BF100ED97E0 /* LaunchScreen.storyboard */; };
 		F69E014021EE1BF100ED97E0 /* FlashCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69E013F21EE1BF100ED97E0 /* FlashCardTests.swift */; };
 		F69E014B21EE1BF100ED97E0 /* FlashCardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69E014A21EE1BF100ED97E0 /* FlashCardUITests.swift */; };
+		F6F0BA7D21F191A2004217C9 /* ItemsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F0BA7C21F191A2004217C9 /* ItemsData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +37,7 @@
 /* Begin PBXFileReference section */
 		F69E012721EE1BED00ED97E0 /* FlashCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F69E012A21EE1BED00ED97E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F69E012C21EE1BED00ED97E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F69E012C21EE1BED00ED97E0 /* FlashyCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashyCardViewController.swift; sourceTree = "<group>"; };
 		F69E012F21EE1BED00ED97E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F69E013121EE1BF100ED97E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F69E013421EE1BF100ED97E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +48,7 @@
 		F69E014621EE1BF100ED97E0 /* FlashCardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlashCardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F69E014A21EE1BF100ED97E0 /* FlashCardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardUITests.swift; sourceTree = "<group>"; };
 		F69E014C21EE1BF100ED97E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F6F0BA7C21F191A2004217C9 /* ItemsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,11 +100,11 @@
 			isa = PBXGroup;
 			children = (
 				F69E012A21EE1BED00ED97E0 /* AppDelegate.swift */,
-				F69E012C21EE1BED00ED97E0 /* ViewController.swift */,
-				F69E012E21EE1BED00ED97E0 /* Main.storyboard */,
-				F69E013121EE1BF100ED97E0 /* Assets.xcassets */,
-				F69E013321EE1BF100ED97E0 /* LaunchScreen.storyboard */,
 				F69E013621EE1BF100ED97E0 /* Info.plist */,
+				F6F0BA8121F1928D004217C9 /* Controllers  */,
+				F6F0BA7E21F191D7004217C9 /* Model */,
+				F6F0BA8021F19270004217C9 /* Views */,
+				F6F0BA7F21F1924C004217C9 /* Supporting files */,
 			);
 			path = FlashCard;
 			sourceTree = "<group>";
@@ -123,6 +125,39 @@
 				F69E014C21EE1BF100ED97E0 /* Info.plist */,
 			);
 			path = FlashCardUITests;
+			sourceTree = "<group>";
+		};
+		F6F0BA7E21F191D7004217C9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F6F0BA7C21F191A2004217C9 /* ItemsData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F6F0BA7F21F1924C004217C9 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				F69E013121EE1BF100ED97E0 /* Assets.xcassets */,
+				F69E013321EE1BF100ED97E0 /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting files";
+			sourceTree = "<group>";
+		};
+		F6F0BA8021F19270004217C9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F69E012E21EE1BED00ED97E0 /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F6F0BA8121F1928D004217C9 /* Controllers  */ = {
+			isa = PBXGroup;
+			children = (
+				F69E012C21EE1BED00ED97E0 /* FlashyCardViewController.swift */,
+			);
+			path = "Controllers ";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,7 +291,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F69E012D21EE1BED00ED97E0 /* ViewController.swift in Sources */,
+				F6F0BA7D21F191A2004217C9 /* ItemsData.swift in Sources */,
+				F69E012D21EE1BED00ED97E0 /* FlashyCardViewController.swift in Sources */,
 				F69E012B21EE1BED00ED97E0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
