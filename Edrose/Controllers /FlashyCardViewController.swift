@@ -7,28 +7,32 @@
 //
 
 import UIKit
+import CoreData
 
 
 
 class FlashyCardViewController: UITableViewController {
     
-    var items = [ItemsData]()
+    var items = [Item]()
     
-let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+//let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+    
+    
+    //        var defaluts = UserDefaults.standard
+
+     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     
 
-    
-    
-    
 
-    //    var lastSelection: NSIndexPath!
-//        var defaluts = UserDefaults.standard
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadItems ()
+loadItems ()
+//        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+//        loadItems ()
 //                if let item = defaluts.array(forKey: "TopicsArray") as? [ItemsData] {
 //                    items = item
 //                }
@@ -73,6 +77,11 @@ let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDo
         
         
         // Rather than the if-statement here we used  the "!" to  reverse the boolean in the items array proprty ".done".
+        
+        
+        // the oreder of the two lines down below this comment is important
+//        context.delete(items[indexPath.row])
+//        items.remove(at: indexPath.row)
         items[indexPath.row].done = !items[indexPath.row].done
         self.saveData()
         
@@ -105,8 +114,11 @@ let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDo
                 alert2.addAction(action2)
                 self.present(alert2, animated: true, completion: nil)
             } else {
-                let newItem = ItemsData()
+                
+               
+                let newItem = Item(context: self.context)
                 newItem.title = textField.text!
+                newItem.done = false
                 self.items.append(newItem)
                 self.saveData()
 //                                self.defaluts.set(self.items, forKey: "TopicsArray");
@@ -129,30 +141,51 @@ let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDo
     }
     
     func saveData() {
-        let encoder = PropertyListEncoder()
         
         do {
-            let data = try encoder.encode(self.items)
-            try data.write(to: self.dataFilePath!)
-             self.tableView.reloadData()
+          try context.save()
         } catch {
-            print("Erorr encoding item array, \(error)")
+            print("Error saving context \(error)")
         }
         
-       
+       self.tableView.reloadData()
     }
     
-    func loadItems () {
-        let decoder = PropertyListDecoder()
-        if  let data = try? Data(contentsOf: dataFilePath!) {
-            do {
-                items = try decoder.decode([ItemsData].self, from: data)
-            } catch {
-                print("Error decoding items array \(error)")
-            }
-            self.tableView.reloadData()
-        }
+    //Load Data
+    func loadItems (with request: NSFetchRequest<Item> = Item.fetchRequest()) {
+    
+    do {
+       items =  try context.fetch(request)
+    } catch {
+        print("Error fetching data from context -> \(error)")
     }
+    self.tableView.reloadData()
+  }
     
    
+}
+
+//MARK: - Search bat method
+
+extension FlashyCardViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let request : NSFetchRequest<Item> = Item.fetchRequest()
+        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+      
+       request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]//ascending means sort in an alphpetic oreder
+        
+        loadItems(with: request)
+      
+    
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadItems()
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
+    }
 }
