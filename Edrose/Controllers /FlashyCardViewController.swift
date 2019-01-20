@@ -98,9 +98,9 @@ loadItems ()
         
         
         //The alert view
-        let alert = UIAlertController(title: "Add a topic name", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Add something here", message: "", preferredStyle: .alert)
         //The alert action
-        let action = UIAlertAction(title: "Add name", style: .default) { (action) in
+        let action = UIAlertAction(title: "Add a name", style: .default) { (action) in
             
             
             //This if-statement is for the whitespaces
