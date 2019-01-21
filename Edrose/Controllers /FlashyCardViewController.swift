@@ -14,7 +14,11 @@ import CoreData
 class FlashyCardViewController: UITableViewController {
     
     var items = [Item]()
-    
+    var selectedCategory : Category? {
+        didSet {
+            loadItems()
+        }
+    }
 //let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     
     
@@ -29,8 +33,6 @@ class FlashyCardViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-loadItems ()
 //        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
 //        loadItems ()
 //                if let item = defaluts.array(forKey: "TopicsArray") as? [ItemsData] {
@@ -119,6 +121,7 @@ loadItems ()
                 let newItem = Item(context: self.context)
                 newItem.title = textField.text!
                 newItem.done = false
+                newItem.parentCategory = self.selectedCategory
                 self.items.append(newItem)
                 self.saveData()
 //                                self.defaluts.set(self.items, forKey: "TopicsArray");
@@ -152,8 +155,16 @@ loadItems ()
     }
     
     //Load Data
-    func loadItems (with request: NSFetchRequest<Item> = Item.fetchRequest()) {
-    
+    func loadItems (with request: NSFetchRequest<Item> = Item.fetchRequest(), predicate: NSPredicate? = nil) {
+    let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name! )
+        if let additionaPredicate = predicate {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionaPredicate])
+        } else {
+            request.predicate = categoryPredicate
+            
+        }
+//        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, predicate])
+//        request.predicate = compoundPredicate
     do {
        items =  try context.fetch(request)
     } catch {
@@ -161,6 +172,8 @@ loadItems ()
     }
     self.tableView.reloadData()
   }
+  
+    
     
    
 }
@@ -170,11 +183,11 @@ loadItems ()
 extension FlashyCardViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let request : NSFetchRequest<Item> = Item.fetchRequest()
-        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+       let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
       
        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]//ascending means sort in an alphpetic oreder
         
-        loadItems(with: request)
+       loadItems (with: request, predicate: predicate)
       
     
     }

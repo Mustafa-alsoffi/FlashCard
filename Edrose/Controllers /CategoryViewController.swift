@@ -38,11 +38,20 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "GoToTopicsItems", sender: self)
         
         
     }
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! FlashyCardViewController
+    if  let indexPath = tableView.indexPathForSelectedRow {
+        destinationVC.selectedCategory = category[indexPath.row]
+    } else {
+        print("Error setting a value for selelctedCategory \(destinationVC.selectedCategory)")
+    }
     
+    }
+
 
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
